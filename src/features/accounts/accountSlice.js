@@ -46,7 +46,25 @@ const accountSlice = createSlice({
   },
 });
 
-export const { deposit, withdraw, requestLoan, payLoan, convertingCurrency } = accountSlice.actions;
+// note: not exporting the deposit function, as it is now 
+// handled by the deposit reducer below
+export const { withdraw, requestLoan, payLoan, convertingCurrency } = accountSlice.actions;
+
+export function deposit(amount, currency) {
+  if (currency === "USD") {
+    return { type: "account/deposit", payload: amount };;
+  }
+  return async (dispatch, getState) => {
+    // API Call to convert currency to USD
+    dispatch({ type: "account/convertingCurrency" });
+    const res = await fetch(`https://api.frankfurter.app/latest?amount=${amount}&from=${currency}&to=USD`)
+    const data = await res.json();
+    const convertedAmount = data.rates.USD;
+    // return action
+    dispatch({ type: "account/deposit", payload: convertedAmount });
+  };
+}
+
 export default accountSlice.reducer;
 
 // Commented out the old reducer function, before using createSlice from Redux Toolkit.
