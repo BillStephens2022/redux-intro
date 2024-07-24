@@ -4,6 +4,8 @@
 
   A simple demo banking app built with React and Redux.
 
+  Deployed URL: billstephens2022.github.io/redux-intro/
+
   ### App Screenshot
   ![app screenshot](/public/screenshot.png)
   
@@ -23,6 +25,10 @@
   ## Usage
   
   npm start
+
+  -- or --
+
+  Deployed URL: billstephens2022.github.io/redux-intro/
 
   ## License
 This application is covered under the MIT License.
